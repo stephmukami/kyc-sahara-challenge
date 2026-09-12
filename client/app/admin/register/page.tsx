@@ -1,0 +1,115 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { AuthShell } from "@/components/auth/AuthShell";
+import { ApiError, adminSignup, type AdminRole } from "@/lib/api";
+import { getAccessToken } from "@/lib/auth-storage";
+import { useRequireAdmin } from "@/lib/useRequireAdmin";
+
+export default function AdminRegisterPage() {
+  const router = useRouter();
+  const { checked } = useRequireAdmin(true);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<AdminRole>("app_admin");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [created, setCreated] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      router.replace("/login");
+      return;
+    }
+
+    setError(null);
+    setCreated(null);
+    setLoading(true);
+    try {
+      const admin = await adminSignup(accessToken, { email, password, role });
+      setCreated(admin.email);
+      setEmail("");
+      setPassword("");
+      setRole("app_admin");
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!checked) return null;
+
+  return (
+    <AuthShell title="Admin Registration" subtitle="Create a new admin account" progress={0.5}>
+      <p className="mb-4 text-xs text-zinc-400">
+        Only fields the backend stores today (email, password, role) — a fuller profile form
+        would need model changes first.
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <label className="block">
+          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+            Email address
+          </span>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="new-admin@domain.com"
+            className="input mt-1"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+            Temporary password
+          </span>
+          <input
+            type="password"
+            required
+            minLength={8}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            className="input mt-1"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+            Admin role
+          </span>
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value as AdminRole)}
+            className="input mt-1"
+          >
+            <option value="app_admin">App admin</option>
+            <option value="super_admin">Super admin</option>
+          </select>
+        </label>
+
+        {error && <p className="text-sm text-red-600">{error}</p>}
+        {created && (
+          <p className="text-sm font-medium text-emerald-600">Created admin: {created}</p>
+        )}
+
+        <div className="flex items-center justify-between gap-3">
+          <Link href="/admin/dashboard" className="text-xs font-semibold text-zinc-400">
+            ← Back to dashboard
+          </Link>
+          <button type="submit" disabled={loading} className="btn-primary">
+            {loading ? "Creating…" : "Create admin →"}
+          </button>
+        </div>
+      </form>
+    </AuthShell>
+  );
+}
