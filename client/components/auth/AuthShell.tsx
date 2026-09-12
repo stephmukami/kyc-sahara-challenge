@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 interface AuthShellProps {
@@ -24,9 +25,18 @@ export function AuthShell({
       <div className="w-full max-w-sm">
         <div className="rounded-t-3xl bg-gradient-to-br from-indigo-600 to-indigo-500 px-6 pt-6 pb-10 text-white shadow-lg">
           <div className="flex items-start justify-between gap-3">
-            <div>
-              <h1 className="text-xl font-bold">{title}</h1>
-              <p className="mt-1 text-sm text-indigo-100">{subtitle}</p>
+            <div className="flex items-start gap-3">
+              <Image
+                src="/favicon-no-bg.png"
+                alt="Unlocked"
+                width={32}
+                height={32}
+                className="mt-0.5 rounded-lg"
+              />
+              <div>
+                <h1 className="text-xl font-bold">{title}</h1>
+                <p className="mt-1 text-sm text-indigo-100">{subtitle}</p>
+              </div>
             </div>
             {onToggleVoiceMode && (
               <button

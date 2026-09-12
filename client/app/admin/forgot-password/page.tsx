@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
           <p className="text-sm text-zinc-600 dark:text-zinc-300">
             If an account with that email exists, a reset link has been sent.
           </p>
-          <Link href="/login" className="btn-primary inline-block">
+          <Link href="/admin/login" className="btn-primary inline-block">
             Back to sign in
           </Link>
         </div>
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
           <button type="submit" disabled={loading} className="btn-primary w-full">
             {loading ? "Sending…" : "Send reset link"}
           </button>
-          <Link href="/login" className="block text-center text-xs font-semibold text-zinc-400">
+          <Link href="/admin/login" className="block text-center text-xs font-semibold text-zinc-400">
             Back to sign in
           </Link>
         </form>

@@ -22,7 +22,7 @@ function ResetPasswordForm() {
     try {
       await adminResetPassword(token, newPassword);
       setDone(true);
-      setTimeout(() => router.push("/login"), 1500);
+      setTimeout(() => router.push("/admin/login"), 1500);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Something went wrong");
     } finally {
@@ -61,7 +61,7 @@ function ResetPasswordForm() {
           <button type="submit" disabled={loading} className="btn-primary w-full">
             {loading ? "Resetting…" : "Reset password"}
           </button>
-          <Link href="/login" className="block text-center text-xs font-semibold text-zinc-400">
+          <Link href="/admin/login" className="block text-center text-xs font-semibold text-zinc-400">
             Back to sign in
           </Link>
         </form>

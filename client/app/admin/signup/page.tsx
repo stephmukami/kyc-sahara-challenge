@@ -8,7 +8,7 @@ import { ApiError, adminSignup, type AdminRole } from "@/lib/api";
 import { getAccessToken } from "@/lib/auth-storage";
 import { useRequireAdmin } from "@/lib/useRequireAdmin";
 
-export default function AdminRegisterPage() {
+export default function AdminSignupPage() {
   const router = useRouter();
   const { checked } = useRequireAdmin(true);
 
@@ -23,7 +23,7 @@ export default function AdminRegisterPage() {
     e.preventDefault();
     const accessToken = getAccessToken();
     if (!accessToken) {
-      router.replace("/login");
+      router.replace("/admin/login");
       return;
     }
 
@@ -46,7 +46,7 @@ export default function AdminRegisterPage() {
   if (!checked) return null;
 
   return (
-    <AuthShell title="Admin Registration" subtitle="Create a new admin account" progress={0.5}>
+    <AuthShell title="Admin Signup" subtitle="Create a new admin account" progress={0.5}>
       <p className="mb-4 text-xs text-zinc-400">
         Only fields the backend stores today (email, password, role) — a fuller profile form
         would need model changes first.

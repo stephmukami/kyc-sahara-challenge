@@ -16,7 +16,7 @@ export function useRequireAdmin(requireSuperAdmin = false) {
   useEffect(() => {
     const current = getCurrentAdmin();
     if (!current || (requireSuperAdmin && current.role !== "super_admin")) {
-      router.replace("/login");
+      router.replace("/admin/login");
       return;
     }
     /* eslint-disable react-hooks/set-state-in-effect */

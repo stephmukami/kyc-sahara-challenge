@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { DecodedToken } from "@/lib/auth-storage";
@@ -24,17 +25,21 @@ export function AdminSidebar({ admin }: { admin: DecodedToken | null }) {
 
   function handleLogout() {
     clearTokens();
-    router.replace("/login");
+    router.replace("/admin/login");
   }
 
   return (
     <aside className="flex w-56 shrink-0 flex-col justify-between border-r border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
       <div>
         <div className="mb-6 flex items-center gap-2 px-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
-            K
-          </span>
-          <span className="font-bold text-zinc-900 dark:text-zinc-50">KYC Orchestrator</span>
+          <Image
+            src="/favicon-no-bg.png"
+            alt="Unlocked"
+            width={28}
+            height={28}
+            className="rounded-lg"
+          />
+          <span className="font-bold text-zinc-900 dark:text-zinc-50">Unlocked</span>
         </div>
 
         <nav className="space-y-1">
@@ -65,14 +70,14 @@ export function AdminSidebar({ admin }: { admin: DecodedToken | null }) {
 
           {admin?.role === "super_admin" && (
             <Link
-              href="/admin/register"
+              href="/admin/signup"
               className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                pathname === "/admin/register"
+                pathname === "/admin/signup"
                   ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
                   : "text-zinc-600 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
               }`}
             >
-              Register Admin
+              Admin Signup
             </Link>
           )}
         </nav>
