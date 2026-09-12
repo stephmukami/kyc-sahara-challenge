@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AuthShell } from "@/components/auth/AuthShell";
+import { AdminAuthShell } from "@/components/admin/AdminAuthShell";
 import { ApiError, adminSignup, type AdminRole } from "@/lib/api";
 import { getAccessToken } from "@/lib/auth-storage";
 import { useRequireAdmin } from "@/lib/useRequireAdmin";
@@ -46,7 +46,7 @@ export default function AdminSignupPage() {
   if (!checked) return null;
 
   return (
-    <AuthShell title="Admin Signup" subtitle="Create a new admin account" progress={0.5}>
+    <AdminAuthShell title="Admin Signup" subtitle="Create a new admin account">
       <p className="mb-4 text-xs text-zinc-400">
         Only fields the backend stores today (email, password, role) — a fuller profile form
         would need model changes first.
@@ -63,7 +63,7 @@ export default function AdminSignupPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="new-admin@domain.com"
-            className="input mt-1"
+            className="input mt-1 mb-3"
           />
         </label>
 
@@ -78,7 +78,7 @@ export default function AdminSignupPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="input mt-1"
+            className="input mt-1 mb-3"
           />
         </label>
 
@@ -89,7 +89,7 @@ export default function AdminSignupPage() {
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as AdminRole)}
-            className="input mt-1"
+            className="input mt-1 mb-3"
           >
             <option value="app_admin">App admin</option>
             <option value="super_admin">Super admin</option>
@@ -110,6 +110,6 @@ export default function AdminSignupPage() {
           </button>
         </div>
       </form>
-    </AuthShell>
+    </AdminAuthShell>
   );
 }

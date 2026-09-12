@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { AuthShell } from "@/components/auth/AuthShell";
+import { AdminAuthShell } from "@/components/admin/AdminAuthShell";
 import { ApiError, adminForgotPassword } from "@/lib/api";
 
 export default function ForgotPasswordPage() {
@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <AuthShell title="Reset Password" subtitle="We'll email you a reset link">
+    <AdminAuthShell title="Reset Password" subtitle="We'll email you a reset link">
       {sent ? (
         <div className="space-y-4 text-center">
           <p className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@domain.com"
-              className="input mt-1"
+              className="input mt-1 mb-3"
             />
           </label>
           {error && <p className="text-sm text-red-600">{error}</p>}
@@ -60,6 +60,6 @@ export default function ForgotPasswordPage() {
           </Link>
         </form>
       )}
-    </AuthShell>
+    </AdminAuthShell>
   );
 }

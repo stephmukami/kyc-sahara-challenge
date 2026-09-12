@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { AuthShell } from "@/components/auth/AuthShell";
+import { AdminAuthShell } from "@/components/admin/AdminAuthShell";
 import { ApiError, adminResetPassword } from "@/lib/api";
 
 function ResetPasswordForm() {
@@ -31,7 +31,7 @@ function ResetPasswordForm() {
   }
 
   return (
-    <AuthShell title="Set New Password" subtitle="Choose a new password for your account">
+    <AdminAuthShell title="Set New Password" subtitle="Choose a new password for your account">
       {!token && (
         <p className="mb-4 text-sm text-amber-600">
           No reset token found in the link — paste it below manually if you have it.
@@ -54,7 +54,7 @@ function ResetPasswordForm() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="••••••••"
-              className="input mt-1"
+              className="input mt-1 mb-3"
             />
           </label>
           {error && <p className="text-sm text-red-600">{error}</p>}
@@ -66,7 +66,7 @@ function ResetPasswordForm() {
           </Link>
         </form>
       )}
-    </AuthShell>
+    </AdminAuthShell>
   );
 }
 
