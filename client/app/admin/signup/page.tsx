@@ -47,67 +47,72 @@ export default function AdminSignupPage() {
 
   return (
     <AdminAuthShell title="Admin Signup" subtitle="Create a new admin account">
-      <p className="mb-4 text-xs text-zinc-400">
-        Only fields the backend stores today (email, password, role) — a fuller profile form
-        would need model changes first.
-      </p>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <div className="space-y-4">
+          <p className="text-xs text-zinc-400">
+            Only fields the backend stores today (email, password, role) — a fuller profile form
+            would need model changes first.
+          </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <label className="block">
-          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Email address
-          </span>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="new-admin@domain.com"
-            className="input mt-1 mb-3"
-          />
-        </label>
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Email address
+            </span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="new-admin@domain.com"
+              className="input mt-1"
+            />
+          </label>
 
-        <label className="block">
-          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Temporary password
-          </span>
-          <input
-            type="password"
-            required
-            minLength={8}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            className="input mt-1 mb-3"
-          />
-        </label>
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Temporary password
+            </span>
+            <input
+              type="password"
+              required
+              minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="input mt-1"
+            />
+          </label>
 
-        <label className="block">
-          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Admin role
-          </span>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value as AdminRole)}
-            className="input mt-1 mb-3"
-          >
-            <option value="app_admin">App admin</option>
-            <option value="super_admin">Super admin</option>
-          </select>
-        </label>
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Admin role
+            </span>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value as AdminRole)}
+              className="input mt-1"
+            >
+              <option value="app_admin">App admin</option>
+              <option value="super_admin">Super admin</option>
+            </select>
+          </label>
+        </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        {created && (
-          <p className="text-sm font-medium text-emerald-600">Created admin: {created}</p>
-        )}
+        <div className="space-y-3">
+          {error && <p className="text-sm text-red-600">{error}</p>}
+          {created && (
+            <p className="text-sm font-medium text-emerald-600">Created admin: {created}</p>
+          )}
 
-        <div className="flex items-center justify-between gap-3">
-          <Link href="/admin/dashboard" className="text-xs font-semibold text-zinc-400">
-            ← Back to dashboard
-          </Link>
-          <button type="submit" disabled={loading} className="btn-primary">
+          <button type="submit" disabled={loading} className="btn-primary w-full">
             {loading ? "Creating…" : "Create admin →"}
           </button>
+          <Link
+            href="/admin/dashboard"
+            className="block text-center text-xs font-semibold text-zinc-400"
+          >
+            ← Back to dashboard
+          </Link>
         </div>
       </form>
     </AdminAuthShell>

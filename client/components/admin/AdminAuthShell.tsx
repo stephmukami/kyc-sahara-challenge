@@ -28,8 +28,8 @@ export function AdminAuthShell({ title, subtitle, children }: AdminAuthShellProp
         </div>
       </div>
 
-      <div className="flex flex-1 justify-center px-4 py-10 sm:px-12">
-        <div className="relative bottom-20 min-h-[24rem] w-full max-w-md rounded-2xl bg-white p-10 shadow-xl dark:bg-zinc-900">
+      <div className="flex flex-1 items-start justify-center px-4 py-10 sm:px-12">
+        <div className="relative bottom-20 flex w-full max-w-md flex-col rounded-2xl bg-white p-10 shadow-xl dark:bg-zinc-900">
           {children}
         </div>
       </div>

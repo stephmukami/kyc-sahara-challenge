@@ -32,40 +32,50 @@ function ResetPasswordForm() {
 
   return (
     <AdminAuthShell title="Set New Password" subtitle="Choose a new password for your account">
-      {!token && (
-        <p className="mb-4 text-sm text-amber-600">
-          No reset token found in the link — paste it below manually if you have it.
-        </p>
-      )}
-      {done ? (
-        <p className="text-center text-sm font-medium text-emerald-600">
-          Password reset — redirecting to sign in…
-        </p>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-              New password
-            </span>
-            <input
-              type="password"
-              required
-              minLength={8}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="••••••••"
-              className="input mt-1 mb-3"
-            />
-          </label>
-          {error && <p className="text-sm text-red-600">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "Resetting…" : "Reset password"}
-          </button>
-          <Link href="/admin/login" className="block text-center text-xs font-semibold text-zinc-400">
-            Back to sign in
-          </Link>
-        </form>
-      )}
+      <div className="flex flex-col">
+        {!token && (
+          <p className="mb-4 text-sm text-amber-600">
+            No reset token found in the link — paste it below manually if you have it.
+          </p>
+        )}
+        {done ? (
+          <div className="flex flex-col items-center text-center">
+            <p className="text-sm font-medium text-emerald-600">
+              Password reset — redirecting to sign in…
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <label className="block">
+              <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                New password
+              </span>
+              <input
+                type="password"
+                required
+                minLength={8}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="••••••••"
+                className="input mt-1"
+              />
+            </label>
+
+            <div className="space-y-3">
+              {error && <p className="text-sm text-red-600">{error}</p>}
+              <button type="submit" disabled={loading} className="btn-primary w-full">
+                {loading ? "Resetting…" : "Reset password"}
+              </button>
+              <Link
+                href="/admin/login"
+                className="block text-center text-xs font-semibold text-zinc-400"
+              >
+                Back to sign in
+              </Link>
+            </div>
+          </form>
+        )}
+      </div>
     </AdminAuthShell>
   );
 }

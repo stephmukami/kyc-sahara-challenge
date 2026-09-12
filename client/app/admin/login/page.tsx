@@ -31,47 +31,51 @@ export default function AdminLoginPage() {
 
   return (
     <AdminAuthShell title="Admin Login" subtitle="Sign in to the Unlocked admin console">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <label className="block">
-          <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Email address
-          </span>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="admin@domain.com"
-            className="input mt-1 mb-3"
-          />
-        </label>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <div className="space-y-4">
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Email address
+            </span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="admin@domain.com"
+              className="input mt-1"
+            />
+          </label>
 
-        <label className="block">
-          <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Password
-            <Link href="/admin/forgot-password" className="font-semibold text-indigo-600">
-              Forgot?
-            </Link>
-          </span>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            className="input mt-1 mb-3"
-          />
-        </label>
+          <label className="block">
+            <span className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Password
+              <Link href="/admin/forgot-password" className="font-semibold text-indigo-600">
+                Forgot?
+              </Link>
+            </span>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="input mt-1"
+            />
+          </label>
+        </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        <div className="space-y-3">
+          {error && <p className="text-sm text-red-600">{error}</p>}
 
-        <button type="submit" disabled={loading} className="btn-primary w-full">
-          {loading ? "Signing in…" : "Sign In →"}
-        </button>
+          <button type="submit" disabled={loading} className="btn-primary w-full">
+            {loading ? "Signing in…" : "Sign In →"}
+          </button>
 
-        <Link href="/login" className="block text-center text-xs font-semibold text-zinc-400">
-          Not an admin? Sign in here
-        </Link>
+          <Link href="/login" className="block text-center text-xs font-semibold text-zinc-400">
+            Not an admin? Sign in here
+          </Link>
+        </div>
       </form>
     </AdminAuthShell>
   );

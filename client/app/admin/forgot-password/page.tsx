@@ -28,16 +28,16 @@ export default function ForgotPasswordPage() {
   return (
     <AdminAuthShell title="Reset Password" subtitle="We'll email you a reset link">
       {sent ? (
-        <div className="space-y-4 text-center">
+        <div className="flex flex-col items-center gap-6 text-center">
           <p className="text-sm text-zinc-600 dark:text-zinc-300">
             If an account with that email exists, a reset link has been sent.
           </p>
-          <Link href="/admin/login" className="btn-primary inline-block">
+          <Link href="/admin/login" className="btn-primary w-full">
             Back to sign in
           </Link>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
               Email address
@@ -48,16 +48,22 @@ export default function ForgotPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@domain.com"
-              className="input mt-1 mb-3"
+              className="input mt-1"
             />
           </label>
-          {error && <p className="text-sm text-red-600">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "Sending…" : "Send reset link"}
-          </button>
-          <Link href="/admin/login" className="block text-center text-xs font-semibold text-zinc-400">
-            Back to sign in
-          </Link>
+
+          <div className="space-y-3">
+            {error && <p className="text-sm text-red-600">{error}</p>}
+            <button type="submit" disabled={loading} className="btn-primary w-full">
+              {loading ? "Sending…" : "Send reset link"}
+            </button>
+            <Link
+              href="/admin/login"
+              className="block text-center text-xs font-semibold text-zinc-400"
+            >
+              Back to sign in
+            </Link>
+          </div>
         </form>
       )}
     </AdminAuthShell>
