@@ -58,3 +58,8 @@ class ActorType(str, enum.Enum):
     admin = "admin"
     user = "user"
     system = "system"
+
+
+class OTPPurpose(str, enum.Enum):
+    signup = "signup"
+    login = "login"

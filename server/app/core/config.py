@@ -13,6 +13,22 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = ["http://localhost:3000"]
 
+    jwt_secret_key: str = "dev-secret-change-me"
+    jwt_algorithm: str = "HS256"
+    access_token_ttl_minutes: int = 30
+    refresh_token_ttl_days: int = 30
+
+    otp_ttl_minutes: int = 5
+    otp_length: int = 6
+    otp_max_attempts: int = 5
+
+    password_reset_token_ttl_minutes: int = 30
+
+    africastalking_username: str | None = None
+    africastalking_api_key: str | None = None
+    africastalking_sender_id: str | None = None
+    africastalking_voice_number: str | None = None
+
 
 @lru_cache
 def get_settings() -> Settings:
