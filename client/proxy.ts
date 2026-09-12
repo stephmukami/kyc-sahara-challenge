@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Public even though they live under /admin/*
-const PUBLIC_ADMIN_PATHS = ["/admin/login", "/admin/forgot-password", "/admin/reset-password"];
+const PUBLIC_ADMIN_PATHS = [
+  "/admin/login",
+  // Not gated for now — the backend's own require_super_admin check on
+  // POST /admin/auth/signup is still the real guard.
+  "/admin/signup",
+  "/admin/forgot-password",
+  "/admin/reset-password",
+];
 
 // This is only a coarse "is there a session at all" check so protected pages
 // don't flash before redirecting — it can't verify the JWT (no secret here),

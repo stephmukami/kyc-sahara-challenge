@@ -1,17 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AdminAuthShell } from "@/components/admin/AdminAuthShell";
 import { ApiError, adminSignup, type AdminRole } from "@/lib/api";
 import { getAccessToken } from "@/lib/auth-storage";
-import { useRequireAdmin } from "@/lib/useRequireAdmin";
 
 export default function AdminSignupPage() {
-  const router = useRouter();
-  const { checked } = useRequireAdmin(true);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<AdminRole>("app_admin");
@@ -21,17 +16,11 @@ export default function AdminSignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const accessToken = getAccessToken();
-    if (!accessToken) {
-      router.replace("/admin/login");
-      return;
-    }
-
     setError(null);
     setCreated(null);
     setLoading(true);
     try {
-      const admin = await adminSignup(accessToken, { email, password, role });
+      const admin = await adminSignup(getAccessToken() ?? "", { email, password, role });
       setCreated(admin.email);
       setEmail("");
       setPassword("");
@@ -42,8 +31,6 @@ export default function AdminSignupPage() {
       setLoading(false);
     }
   }
-
-  if (!checked) return null;
 
   return (
     <AdminAuthShell title="Admin Signup" subtitle="Create a new admin account">

@@ -15,6 +15,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "Applications", href: "/admin/dashboard", enabled: true },
   { label: "Block Catalog", href: "/admin/blocks", enabled: true },
+  { label: "Admin Signup", href: "/admin/signup", enabled: true },
   { label: "Sessions & Users", href: "/admin/sessions", enabled: false },
   { label: "Audit Log", href: "/admin/audit-log", enabled: false },
 ];
@@ -66,19 +67,6 @@ export function AdminSidebar({ admin }: { admin: DecodedToken | null }) {
                 <span className="text-[10px] uppercase">Soon</span>
               </span>
             )
-          )}
-
-          {admin?.role === "super_admin" && (
-            <Link
-              href="/admin/signup"
-              className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                pathname === "/admin/signup"
-                  ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
-                  : "text-zinc-600 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
-              }`}
-            >
-              Admin Signup
-            </Link>
           )}
         </nav>
       </div>
